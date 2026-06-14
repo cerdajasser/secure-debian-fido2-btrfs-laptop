@@ -1,0 +1,6 @@
+[Unit]
+Description=Refresh grub-btrfs snapshot menu safely
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/grub-btrfs-safe-refresh

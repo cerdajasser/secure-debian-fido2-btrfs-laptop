@@ -1,0 +1,7 @@
+10:auth sufficient pam_u2f.so cue authfile=/etc/Yubico/u2f_keys
+13:auth       optional   pam_faildelay.so  delay=3000000
+17:# auth       required   pam_issue.so issue=/etc/issue
+21:auth       requisite  pam_nologin.so
+60:# Standard Un*x authentication.
+61:@include common-auth
+67:auth       optional   pam_group.so

@@ -1,0 +1,2 @@
+DPkg::Pre-Invoke { "/usr/local/sbin/snapper-apt-pre"; };
+DPkg::Post-Invoke { "/usr/local/sbin/snapper-apt-post"; };

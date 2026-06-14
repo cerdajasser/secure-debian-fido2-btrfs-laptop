@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch Snapper snapshots and refresh grub-btrfs menu
+
+[Path]
+PathModified=/.snapshots
+PathChanged=/.snapshots
+
+[Install]
+WantedBy=multi-user.target

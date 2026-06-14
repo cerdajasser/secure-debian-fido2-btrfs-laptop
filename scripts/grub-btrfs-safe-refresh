@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+exec 9>/run/grub-btrfs-refresh.lock
+flock -n 9 || exit 0
+
+# Let Snapper finish writing metadata and avoid racing manual update-grub.
+sleep 8
+
+for i in {1..60}; do
+  if pgrep -x update-grub >/dev/null 2>&1 || \
+     pgrep -x grub-mkconfig >/dev/null 2>&1 || \
+     pgrep -x os-prober >/dev/null 2>&1; then
+    sleep 2
+  else
+    break
+  fi
+done
+
+/usr/sbin/update-grub

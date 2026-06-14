@@ -1,0 +1,7 @@
+4:auth    requisite       pam_nologin.so
+5:auth    required        pam_succeed_if.so user != root quiet_success
+9:auth sufficient pam_u2f.so cue authfile=/etc/Yubico/u2f_keys
+11:# auth    sufficient      pam_succeed_if.so user ingroup nopasswdlogin
+13:@include common-auth
+15:-auth   optional        pam_gnome_keyring.so
+16:-auth   optional        pam_kwallet5.so

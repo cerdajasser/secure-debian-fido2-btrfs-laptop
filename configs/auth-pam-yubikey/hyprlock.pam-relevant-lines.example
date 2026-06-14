@@ -1,0 +1,2 @@
+1:auth sufficient pam_u2f.so cue authfile=/etc/Yubico/u2f_keys
+2:@include common-auth

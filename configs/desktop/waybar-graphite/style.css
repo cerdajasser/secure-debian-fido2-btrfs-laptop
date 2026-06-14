@@ -1,0 +1,64 @@
+/* ---- Graphite Waybar ---- */
+
+* {
+  font-family: JetBrainsMono Nerd Font;
+  font-size: 12px;
+  border: none;
+}
+
+/* Bar */
+window#waybar {
+  background: #1e2127;
+  color: #d6dae0;
+  border-bottom: 1px solid #e2e6ec;
+  margin: 6px 10px;
+  border-radius: 10px;
+}
+
+/* Workspaces */
+#workspaces button:hover {
+  padding: 4px 8px;
+  color: #b9bec6;
+  background: transparent;
+  border-radius: 6px;
+}
+
+#workspaces button.active {
+  background: #2a2f38;
+  color: #e2e6ec;
+}
+
+#workspaces button:hover {
+  background: #3a3f4b;
+}
+
+/* Modules */
+#clock,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#tray {
+  padding: 0 10px;
+  color: #d6dae0;
+}
+
+/* Battery states */
+#battery {
+  color: #8fb573;
+}
+
+#battery.warning {
+  color: #d6b97b;
+}
+
+#battery.critical {
+  color: #c96b6b;
+}
+
+/* Tooltip */
+tooltip {
+  background: #2a2f38;
+  color: #d6dae0;
+  border: 1px solid #3a3f4b;
+}

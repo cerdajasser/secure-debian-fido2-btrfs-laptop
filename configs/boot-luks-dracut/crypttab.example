@@ -1,0 +1,1 @@
+nvme1n1p3_crypt UUID=<UUID> none luks,discard,x-initrd.attach,fido2-device=auto

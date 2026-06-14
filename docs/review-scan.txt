@@ -1,0 +1,53 @@
+# Quick scan report
+
+This is a helper only. Manually review before publishing.
+
+## Sensitive keyword matches
+```text
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/scripts/update-dracut-fido2-grub:7:DRACUT_SUFFIX="dracut-passphrase"
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/scripts/update-dracut-fido2-grub:56:install_items+=" /usr/bin/fido2-token "
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/scripts/update-dracut-fido2-grub:116:  lsinitrd "$TMP" | grep -E 'crypttab|systemd-cryptsetup|cryptsetup|fido2-token|fido_id|60-fido|lvm|btrfs' | head -80 || true
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/boot-luks-dracut/10-jasser-luks-fido2.conf:6:install_items+=" /usr/bin/fido2-token "
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/grub/default-grub.example:35:# Uncomment to disable generation of recovery mode menu entries
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/grub/default-grub.example:36:#GRUB_DISABLE_RECOVERY="true"
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/grub/09_dracut_fido2.example:7:    initrd /initrd.img-7.0.10+deb14-amd64-dracut-passphrase
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/auth-pam-yubikey/pam-u2f-snippets.md:9:Use near the top of these PAM files, before normal password auth:
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/auth-pam-yubikey/pam-u2f-snippets.md:22:- password fallback remains available;
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/grub-btrfs/grub-btrfs-config.example:73:#GRUB_BTRFS_ROOTFLAGS="space_cache,commit=10,norecovery"
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/grub-btrfs/grub-btrfs-config.example:155:# Password protection management for submenu,snapshots
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/grub-btrfs/grub-btrfs-config.example:160:# When Grub's password protection is enabled, the superuser is authorized by default, it isn't necessary to add it
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/skwd-wall/data/matugen/templates/vscode-theme.json:217:  "tokenColors": [
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/skwd-wall/data/matugen/templates/zen-content.css:25:@-moz-document url("about:privatebrowsing"), url("about:blank") {
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/shell/zshrc.example:138:ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=red,bold'
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/shell/zshrc.example:457:# ---------- Local private overrides ----------
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/shell/zshrc.example:458:# Put machine-specific secrets/exports in ~/.zshrc.local instead of this file.
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/docs/local-verification-commands.md:24:FIDO2 token enrolled: yes
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/docs/local-verification-commands.md:25:Recovery key enrolled: yes
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/docs/local-verification-commands.md:26:Normal passphrase fallback: yes
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/docs/do-not-publish.md:4:- LUKS recovery key
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/docs/do-not-publish.md:6:- SSH private keys
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/docs/do-not-publish.md:7:- Bitwarden/password manager data
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/docs/do-not-publish.md:9:- Private tokens/API keys
+```
+
+## User/path matches
+```text
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/systemd/skwd-daemon.user.service:12:Environment=PATH=/home/<USER>/.cargo/bin:/usr/local/bin:/usr/bin:/bin
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/kando/kando/menus.json:47:              "command": "/home/<USER>/.local/bin/ws-right.sh",
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/kando/kando/menus.json:200:                  "path": "/home/<USER>/opt"
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/kando/kando/menus.json:238:              "command": "/home/<USER>/.local/bin/ws-left.sh",
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/kando/menus.json:47:              "command": "/home/<USER>/.local/bin/ws-right.sh",
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/kando/menus.json:200:                  "path": "/home/<USER>/opt"
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/kando/menus.json:238:              "command": "/home/<USER>/.local/bin/ws-left.sh",
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/skwd-wall/config.json:5:    "wallpaper": "/home/<USER>/Pictures/wallpapers/",
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/skwd-wall/config.json:6:    "videoWallpaper": "/home/<USER>/Pictures/wallpapers/",
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/skwd-wall/config.json:10:    "steam": "/home/<USER>/.steam/debian-installation",
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/skwd-wall/config.json:11:    "steamWorkshop": "/home/<USER>/.steam/debian-installation/steamapps/workshop/content/431960",
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/skwd-wall/config.json:12:    "steamWeAssets": "/home/<USER>/.steam/debian-installation/steamapps/common/wallpaper_engine/assets"
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/fastfetch/fastfetch/config-graphite.jsonc:6:    "source": "/home/<USER>/.config/fastfetch/logos/debian-graphite.png",
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/desktop/fastfetch/config-graphite.jsonc:6:    "source": "/home/<USER>/.config/fastfetch/logos/debian-graphite.png",
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/shell/zshrc.example:2:# Jazzer's Zsh — Oh-My-Zsh + Starship + fzf-tab
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/shell/zshrc.example:290:has figlet && has lolcat && alias banner='figlet Jazzer | lolcat'
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/shell/zshrc.example:291:has toilet && has lolcat && alias cyberbanner='toilet -f pagga Jazzer | lolcat'
+/home/<USER>/Documents/Anon-howtos/Anon-HowTos/github/secure-debian-fido2-btrfs-laptop-minimal-share-2026<EFI_OR_BOOT_UUID>10/configs/shell/zshrc.example:335:# ---------- Jazzer dashboard ----------
+```

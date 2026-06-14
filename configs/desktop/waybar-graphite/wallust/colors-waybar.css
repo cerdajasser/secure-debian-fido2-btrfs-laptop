@@ -1,0 +1,24 @@
+/* ---- 💫 https://github.com/LinuxBeginnings 💫 ---- */  
+ /* wallust template - colors-waybar */
+
+ @define-color foreground #CECECE;
+ @define-color background #222222;
+ @define-color background-alt rgba(34,34,34,0.25);
+ @define-color cursor #B7B6B7;
+ 
+ @define-color color0 #484848;
+ @define-color color1 #585858;
+ @define-color color2 #595959;
+ @define-color color3 #5F5F5F;
+ @define-color color4 #9A9A9A;
+ @define-color color5 #A7A7A7;
+ @define-color color6 #AEADAE;
+ @define-color color7 #EBEBEB;
+ @define-color color8 #A4A4A4;
+ @define-color color9 #767576;
+ @define-color color10 #767676;
+ @define-color color11 #7F7F7F;
+ @define-color color12 #CECECE;
+ @define-color color13 #DEDEDE;
+ @define-color color14 #E8E7E8;
+ @define-color color15 #EBEBEB; 

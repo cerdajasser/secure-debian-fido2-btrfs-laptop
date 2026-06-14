@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+if command -v snapper >/dev/null 2>&1; then
+  snapper -c root create \
+    --type pre \
+    --print-number \
+    --description "apt package operation" \
+    --userdata "important=yes" \
+    > /run/snapper-apt-pre-number || true
+fi

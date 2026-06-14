@@ -1,0 +1,267 @@
+{
+  "version": "2.3.1",
+  "menus": [
+    {
+      "root": {
+        "type": "submenu",
+        "name": "Example Menu",
+        "icon": "debian",
+        "iconTheme": "simple-icons",
+        "children": [
+          {
+            "type": "submenu",
+            "data": {},
+            "name": "Kitty or Screenshot",
+            "icon": "call_split",
+            "iconTheme": "material-symbols-rounded",
+            "children": [
+              {
+                "type": "command",
+                "data": {
+                  "command": "flatpak run be.alexandervanhee.gradia --screenshot=INTERACTIVE",
+                  "detached": true,
+                  "isolated": false,
+                  "delayed": false
+                },
+                "name": "Screenshot",
+                "icon": "screenshot_tablet",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "command",
+                "data": {
+                  "command": "kitty",
+                  "detached": true,
+                  "isolated": false,
+                  "delayed": false
+                },
+                "name": "kitty",
+                "icon": "terminal",
+                "iconTheme": "material-symbols-rounded"
+              }
+            ]
+          },
+          {
+            "type": "command",
+            "data": {
+              "command": "/home/<USER>/.local/bin/ws-right.sh",
+              "detached": true,
+              "isolated": false,
+              "delayed": false
+            },
+            "name": "Right screen",
+            "icon": "keyboard_double_arrow_right",
+            "iconTheme": "material-symbols-rounded"
+          },
+          {
+            "type": "submenu",
+            "data": {},
+            "name": "Games",
+            "icon": "steam",
+            "iconTheme": "simple-icons",
+            "children": [
+              {
+                "type": "command",
+                "data": {
+                  "command": "steam steam://rungameid/2357570",
+                  "detached": true,
+                  "isolated": false,
+                  "delayed": false
+                },
+                "name": "Overwatch® 2",
+                "icon": "stackblitz",
+                "iconTheme": "simple-icons"
+              },
+              {
+                "type": "command",
+                "data": {
+                  "command": "steam steam://rungameid/367520",
+                  "detached": true,
+                  "isolated": false,
+                  "delayed": false
+                },
+                "name": "Hollow Knight",
+                "icon": "chess_knight",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "command",
+                "data": {
+                  "command": "steam",
+                  "detached": true,
+                  "isolated": false,
+                  "delayed": false
+                },
+                "name": "Steam",
+                "icon": "steam",
+                "iconTheme": "simple-icons"
+              },
+              {
+                "type": "command",
+                "data": {
+                  "command": "steam steam://rungameid/1295660",
+                  "detached": true,
+                  "isolated": false,
+                  "delayed": false
+                },
+                "name": "CIV III",
+                "icon": "search_activity",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "command",
+                "data": {
+                  "command": "steam steam://rungameid/1091500",
+                  "detached": true,
+                  "isolated": false,
+                  "delayed": false
+                },
+                "name": "Cyberpunk 2077",
+                "icon": "cyberdefenders",
+                "iconTheme": "simple-icons"
+              }
+            ]
+          },
+          {
+            "type": "submenu",
+            "name": "Apps",
+            "icon": "apps",
+            "iconTheme": "material-symbols-rounded",
+            "children": [
+              {
+                "type": "command",
+                "data": {
+                  "command": "/usr/lib/firefox-esr/firefox-esr",
+                  "detached": true
+                },
+                "name": "Firefox ESR",
+                "icon": "uri-item.svg",
+                "iconTheme": "kando"
+              },
+              {
+                "type": "command",
+                "data": {
+                  "command": "\"/opt/YouTube Music/youtube-music\"",
+                  "detached": true,
+                  "isolated": false,
+                  "delayed": false
+                },
+                "name": "YouTube Music",
+                "icon": "music_note",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "command",
+                "data": {
+                  "command": "xdg-email"
+                },
+                "name": "E-Mail",
+                "icon": "mail",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "command",
+                "data": {
+                  "command": "thunar"
+                },
+                "name": "Thunar File Manager",
+                "icon": "file-item.svg",
+                "iconTheme": "kando"
+              },
+              {
+                "type": "command",
+                "data": {
+                  "command": "kitty"
+                },
+                "name": "Terminal",
+                "icon": "terminal",
+                "iconTheme": "material-symbols-rounded"
+              }
+            ]
+          },
+          {
+            "type": "submenu",
+            "name": "Bookmarks",
+            "icon": "folder_check",
+            "iconTheme": "material-symbols-rounded",
+            "children": [
+              {
+                "type": "command",
+                "data": {
+                  "command": "xdg-open \"$(xdg-user-dir PICTURES)\""
+                },
+                "name": "Pictures",
+                "icon": "imagesmode",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "file",
+                "data": {
+                  "path": "/home/<USER>/opt"
+                },
+                "name": "opt",
+                "icon": "file-item.svg",
+                "iconTheme": "kando"
+              },
+              {
+                "type": "command",
+                "data": {
+                  "command": "xdg-open \"$(xdg-user-dir DOCUMENTS)\""
+                },
+                "name": "Documents",
+                "icon": "text_ad",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "command",
+                "data": {
+                  "command": "xdg-open \"$(xdg-user-dir DESKTOP)\""
+                },
+                "name": "Desktop",
+                "icon": "desktop_windows",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "command",
+                "data": {
+                  "command": "xdg-open \"$(xdg-user-dir DOWNLOAD)\""
+                },
+                "name": "Downloads",
+                "icon": "download",
+                "iconTheme": "material-symbols-rounded"
+              }
+            ]
+          },
+          {
+            "type": "command",
+            "data": {
+              "command": "/home/<USER>/.local/bin/ws-left.sh",
+              "detached": false,
+              "isolated": false,
+              "delayed": false
+            },
+            "name": "Left Screen",
+            "icon": "keyboard_double_arrow_left",
+            "iconTheme": "material-symbols-rounded"
+          }
+        ]
+      },
+      "shortcut": "Control+Space",
+      "shortcutID": "example-menu",
+      "centered": false,
+      "anchored": false,
+      "hoverMode": false,
+      "tags": []
+    }
+  ],
+  "collections": [
+    {
+      "name": "Favorites",
+      "icon": "favorite",
+      "iconTheme": "material-symbols-rounded",
+      "tags": [
+        "favs"
+      ]
+    }
+  ]
+}

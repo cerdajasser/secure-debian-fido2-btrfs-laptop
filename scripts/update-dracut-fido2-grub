@@ -1,0 +1,204 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+TITLE="Debian GNU/Linux - dracut FIDO2 LUKS default"
+GRUB_SNIPPET="/etc/grub.d/09_dracut_fido2"
+LUKS_DEVICE="/dev/nvme1n1p3"
+DRACUT_SUFFIX="dracut-passphrase"
+MIN_BOOT_FREE_MIB=60
+
+die() {
+  echo "ERROR: $*" >&2
+  exit 1
+}
+
+need_cmd() {
+  command -v "$1" >/dev/null 2>&1 || die "Missing command: $1"
+}
+
+[ "$(id -u)" -eq 0 ] || die "Run with sudo."
+
+need_cmd dracut
+need_cmd update-grub
+need_cmd find
+need_cmd sort
+need_cmd sed
+need_cmd grep
+need_cmd awk
+need_cmd stat
+need_cmd df
+need_cmd python3
+
+[ -x /usr/sbin/grub-probe ] || die "Missing /usr/sbin/grub-probe"
+[ -e "$LUKS_DEVICE" ] || die "Missing LUKS device: $LUKS_DEVICE"
+
+echo "==> Checking /etc/crypttab..."
+if ! awk '
+  $0 !~ /^[[:space:]]*#/ &&
+  $1 == "nvme1n1p3_crypt" &&
+  $0 ~ /(^|,)fido2-device=auto(,|$)/ { found=1 }
+  END { exit(found ? 0 : 1) }
+' /etc/crypttab; then
+  echo "Current /etc/crypttab:" >&2
+  sed -n "1,20p" /etc/crypttab >&2
+  die "/etc/crypttab does not contain fido2-device=auto for nvme1n1p3_crypt."
+fi
+
+echo "==> Ensuring dracut FIDO2 config exists..."
+mkdir -p /etc/dracut.conf.d
+
+cat > /etc/dracut.conf.d/10-jasser-luks-fido2.conf <<'DRACUT_CONF'
+hostonly="yes"
+hostonly_mode="strict"
+hostonly_cmdline="yes"
+
+install_items+=" /etc/crypttab "
+install_items+=" /usr/bin/fido2-token "
+install_items+=" /usr/lib/udev/rules.d/60-fido-id.rules "
+install_items+=" /usr/lib/udev/fido_id "
+DRACUT_CONF
+
+KVER="${1:-}"
+if [ -z "$KVER" ]; then
+  KVER="$(find /boot -maxdepth 1 -name 'vmlinuz-*' -printf '%f\n' \
+    | sed 's/^vmlinuz-//' \
+    | sort -V \
+    | tail -n1)"
+fi
+
+[ -n "$KVER" ] || die "Could not find a kernel in /boot."
+[ -f "/boot/vmlinuz-${KVER}" ] || die "Missing kernel: /boot/vmlinuz-${KVER}"
+
+TARGET="/boot/initrd.img-${KVER}-${DRACUT_SUFFIX}"
+TMP="/var/tmp/initrd.img-${KVER}-${DRACUT_SUFFIX}.$$"
+
+echo "==> Kernel: $KVER"
+echo "==> Target initrd: $TARGET"
+
+echo "==> Creating Snapper checkpoint..."
+if command -v snapper >/dev/null 2>&1; then
+  snapper -c root create --description "Before rebuilding dracut FIDO2 GRUB entry for ${KVER}" || true
+fi
+
+echo "==> Building dracut image in /var/tmp first..."
+rm -f "$TMP"
+
+dracut --force --hostonly --compress "xz -T0 --check=crc32" "$TMP" "$KVER"
+
+[ -s "$TMP" ] || die "Dracut image was not created."
+
+IMG_SIZE_BYTES="$(stat -c '%s' "$TMP")"
+IMG_SIZE_MIB="$(( (IMG_SIZE_BYTES + 1048575) / 1048576 ))"
+
+BOOT_FREE_BYTES="$(df --output=avail -B1 /boot | awk 'NR==2 {print $1}')"
+BOOT_FREE_MIB="$(( BOOT_FREE_BYTES / 1048576 ))"
+
+OLD_SIZE_MIB=0
+if [ -f "$TARGET" ]; then
+  OLD_SIZE_BYTES="$(stat -c '%s' "$TARGET")"
+  OLD_SIZE_MIB="$(( (OLD_SIZE_BYTES + 1048575) / 1048576 ))"
+fi
+
+EFFECTIVE_FREE_MIB="$(( BOOT_FREE_MIB + OLD_SIZE_MIB ))"
+NEEDED_MIB="$(( IMG_SIZE_MIB + MIN_BOOT_FREE_MIB ))"
+
+echo "==> New image size: ${IMG_SIZE_MIB} MiB"
+echo "==> /boot free: ${BOOT_FREE_MIB} MiB"
+echo "==> /boot effective free after overwrite: ${EFFECTIVE_FREE_MIB} MiB"
+
+if [ "$EFFECTIVE_FREE_MIB" -lt "$NEEDED_MIB" ]; then
+  rm -f "$TMP"
+  die "/boot too tight. Need about ${NEEDED_MIB} MiB effective free."
+fi
+
+echo "==> Quick initrd contents check..."
+if command -v lsinitrd >/dev/null 2>&1; then
+  lsinitrd "$TMP" | grep -E 'crypttab|systemd-cryptsetup|cryptsetup|fido2-token|fido_id|60-fido|lvm|btrfs' | head -80 || true
+fi
+
+echo "==> Installing dracut image into /boot..."
+cp -f "$TMP" "${TARGET}.new"
+chmod 0644 "${TARGET}.new"
+mv -f "${TARGET}.new" "$TARGET"
+rm -f "$TMP"
+
+BOOT_UUID="$(/usr/sbin/grub-probe --target=fs_uuid /boot)"
+[ -n "$BOOT_UUID" ] || die "Could not determine /boot UUID."
+
+LINUX_ARGS="$(cat /proc/cmdline | tr ' ' '\n' \
+  | grep -v '^BOOT_IMAGE=' \
+  | grep -v '^rd.auto=1$' \
+  | grep -v '^initrd=' \
+  | paste -sd' ' -)"
+
+echo "$LINUX_ARGS" | grep -q 'root=' || die "Could not find root= in current kernel cmdline."
+
+echo "==> Backing up old GRUB snippet..."
+mkdir -p /root/grubd-backups
+if [ -f "$GRUB_SNIPPET" ]; then
+  cp -av "$GRUB_SNIPPET" "/root/grubd-backups/09_dracut_fido2.bak.$(date +%F-%H%M%S)" >/dev/null
+fi
+
+echo "==> Writing $GRUB_SNIPPET..."
+cat > "$GRUB_SNIPPET" <<GRUB_ENTRY
+#!/bin/sh
+exec tail -n +3 \$0
+
+menuentry '${TITLE}' {
+    search --no-floppy --fs-uuid --set=root ${BOOT_UUID}
+    linux /vmlinuz-${KVER} ${LINUX_ARGS} rd.auto=1
+    initrd /initrd.img-${KVER}-${DRACUT_SUFFIX}
+}
+GRUB_ENTRY
+
+chmod +x "$GRUB_SNIPPET"
+
+echo "==> Setting GRUB to boot first menu entry with visible fallback menu..."
+cp -av /etc/default/grub "/etc/default/grub.bak.update-dracut-fido2.$(date +%F-%H%M%S)" >/dev/null
+
+python3 - <<'PY'
+from pathlib import Path
+
+p = Path("/etc/default/grub")
+lines = p.read_text().splitlines()
+
+wanted = {
+    "GRUB_DEFAULT": "0",
+    "GRUB_TIMEOUT_STYLE": "menu",
+    "GRUB_TIMEOUT": "5",
+}
+
+seen = set()
+out = []
+
+for line in lines:
+    stripped = line.strip()
+    replaced = False
+    for key, value in wanted.items():
+        if stripped.startswith(key + "="):
+            if key not in seen:
+                out.append(f"{key}={value}")
+                seen.add(key)
+            replaced = True
+            break
+    if not replaced:
+        out.append(line)
+
+for key, value in wanted.items():
+    if key not in seen:
+        out.append(f"{key}={value}")
+
+p.write_text("\n".join(out).rstrip() + "\n")
+PY
+
+echo "==> Regenerating GRUB..."
+update-grub
+
+echo
+echo "==> Final verification:"
+grep -A5 -B2 "dracut FIDO2" /boot/grub/grub.cfg || true
+echo
+grep -E '^GRUB_DEFAULT=|^GRUB_TIMEOUT_STYLE=|^GRUB_TIMEOUT=' /etc/default/grub || true
+
+echo
+echo "DONE. Normal Debian entries remain available as fallback."

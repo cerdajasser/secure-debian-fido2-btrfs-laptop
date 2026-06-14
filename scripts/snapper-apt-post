@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+if command -v snapper >/dev/null 2>&1 && [ -r /run/snapper-apt-pre-number ]; then
+  pre="$(cat /run/snapper-apt-pre-number)"
+
+  if [[ "$pre" =~ ^[0-9]+$ ]]; then
+    snapper -c root create \
+      --type post \
+      --pre-number "$pre" \
+      --description "apt package operation finished" \
+      --userdata "important=yes" \
+      || true
+  fi
+
+  rm -f /run/snapper-apt-pre-number
+fi

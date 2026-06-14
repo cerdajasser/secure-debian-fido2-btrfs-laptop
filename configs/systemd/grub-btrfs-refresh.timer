@@ -1,0 +1,10 @@
+[Unit]
+Description=Periodic grub-btrfs menu refresh fallback
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=15min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

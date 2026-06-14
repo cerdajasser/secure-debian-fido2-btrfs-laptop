@@ -1,0 +1,7 @@
+5:auth sufficient pam_u2f.so cue authfile=/etc/Yubico/u2f_keys
+8:auth       sufficient pam_rootok.so
+17:# auth       required   pam_wheel.so
+21:# auth       sufficient pam_wheel.so trust
+25:# auth       required   pam_wheel.so deny group=nosu
+56:# The standard Unix authentication modules, used with
+59:@include common-auth

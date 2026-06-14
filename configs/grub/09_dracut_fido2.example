@@ -1,0 +1,8 @@
+#!/bin/sh
+exec tail -n +3 $0
+
+menuentry 'Debian GNU/Linux - dracut FIDO2 LUKS default' {
+    search --no-floppy --fs-uuid --set=root <UUID>
+    linux /vmlinuz-7.0.10+deb14-amd64 root=/dev/mapper/<VG_NAME>-root ro rootflags=subvol=@rootfs quiet rd.auto=1
+    initrd /initrd.img-7.0.10+deb14-amd64-dracut-passphrase
+}
