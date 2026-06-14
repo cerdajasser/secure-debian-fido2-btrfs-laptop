@@ -1,6 +1,6 @@
 # Local verification commands
 
-Run these locally instead of publishing their full output.
+Run these locally.
 
 ## Storage and Btrfs
 
@@ -17,7 +17,7 @@ sudo cryptsetup luksDump /dev/<encrypted-partition>
 sudo systemd-cryptenroll /dev/<encrypted-partition>
 ```
 
-Suggested public summary instead of full `luksDump`:
+Public summary instead of full `luksDump`:
 
 ```text
 LUKS version: 2
